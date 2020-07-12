@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace AmisMessengerApi.Models.Users
 {
     public class UserModel
-    // xác định dữ liệu được trả về cho các yêu cầu GET , và ngăn chặn trả về một số thuộc tính như getAll() , getById
+    // xác định dữ liệu được trả về cho các yêu cầu GET , và ngăn chặn trả về một số thuộc tính : getAll() , getById
     {
         public Guid UserId { get; set; }
         public string UserName { get; set; }

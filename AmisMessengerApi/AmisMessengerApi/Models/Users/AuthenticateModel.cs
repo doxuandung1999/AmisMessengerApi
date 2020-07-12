@@ -10,7 +10,7 @@ namespace AmisMessengerApi.Models.Users
         // xác định các tham số cho yêu cầu POST đến database Users 
     {
         [Required] // yêu cầu bắt buộc phải có để xác thực
-        public string UserName { get; set; }
+        public string UserEmail { get; set; }
         [Required]
         public string Password { get; set; }
     }
