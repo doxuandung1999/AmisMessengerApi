@@ -16,6 +16,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using AmisMessengerApi.Services;
 using Microsoft.IdentityModel.Tokens;
+using AutoMapper;
 
 namespace AmisMessengerApi
 {
@@ -38,6 +39,7 @@ namespace AmisMessengerApi
                 ));
             services.AddMvc();
             services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -58,7 +60,7 @@ namespace AmisMessengerApi
                     OnTokenValidated = context =>
                     {
                         var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
-                        var userId = new Guid(context.Principal.Identity.Name) ;
+                        var userId = Guid.Parse(context.Principal.Identity.Name) ;
                         //int.Parse(context.Principal.Identity.Name)
                         var user = userService.GetUser(userId);
                         if (user == null)
@@ -82,6 +84,7 @@ namespace AmisMessengerApi
 
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

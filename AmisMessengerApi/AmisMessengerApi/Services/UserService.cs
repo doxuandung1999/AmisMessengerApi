@@ -62,7 +62,7 @@ namespace AmisMessengerApi.Services
                 CreatPassword(password, out passwordHash, out passwordSalt);
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;
-
+                user.UserId = new Guid();
                 // add user vào database
                 _context.Users.Add(user);
                 _context.SaveChanges();
