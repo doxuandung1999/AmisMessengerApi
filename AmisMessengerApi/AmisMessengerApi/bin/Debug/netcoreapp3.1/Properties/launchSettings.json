@@ -8,23 +8,24 @@
       "sslPort": 44320
     }
   },
-  //"profiles": {
-  //  "IIS Express": {
-  //    "commandName": "IISExpress",
-  //    "launchBrowser": true,
-  //    "launchUrl": "weatherforecast",
-  //    "environmentVariables": {
-  //      "ASPNETCORE_ENVIRONMENT": "Development"
-  //    }
-  //  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
     "AmisMessengerApi": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "",
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
+
   }
 }

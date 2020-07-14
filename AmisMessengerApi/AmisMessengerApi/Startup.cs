@@ -33,10 +33,23 @@ namespace AmisMessengerApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+         
             // sử dụng mysql vào ứng dụng
             services.AddDbContextPool<DataContext>(
              options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")
                 ));
+            // chia sẻ tài nguyên từ 2 cái domain cho nhau
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:44320", "http://localhost:4200")
+                           .AllowAnyHeader()
+                           .AllowAnyMethod()
+                           .AllowCredentials();
+                    });
+            });
             services.AddMvc();
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -88,12 +101,15 @@ namespace AmisMessengerApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env , DataContext dataContext)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            dataContext.Database.Migrate();
+
+            app.UseCors();
 
             app.UseHttpsRedirection();
 
