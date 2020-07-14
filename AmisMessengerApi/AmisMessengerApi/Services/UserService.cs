@@ -26,7 +26,7 @@ namespace AmisMessengerApi.Services
         {
             _context = context;
         }
-        // xác thực nguowffi dùng
+        // xác thực người dùng
         public User Authenticate(string email , string password)
         {
             // kiểm tra email hoặc password có rỗng hay ko
@@ -53,7 +53,7 @@ namespace AmisMessengerApi.Services
         {
             if (string.IsNullOrWhiteSpace(password)) throw new ApplicationException("nhập lại password");
             // kiểm tra User đã tòn tại chưa
-            if (_context.Users.Any(x => x.UserEmail == user.UserEmail)) throw new ApplicationException(user.UserEmail + " đã tồn tại");
+            if (_context.Users.Any(x => x.UserEmail == user.UserEmail)) throw new ApplicationException("Email " +user.UserEmail + " đã tồn tại");
             // tạo password nếu các đk thỏa mãn
             if (!string.IsNullOrWhiteSpace(password))
             {
@@ -63,6 +63,18 @@ namespace AmisMessengerApi.Services
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;
                 user.UserId = new Guid();
+
+                //var _user = new User
+                //{
+                //    UserId = new Guid(),
+                //    UserEmail = user.UserEmail,
+                //    UserName = user.UserName,
+                //    PhoneNumber = user.PhoneNumber,
+                //    UserAvatar = user.UserAvatar,
+                //    PasswordHash = user.PasswordHash,
+                //    PasswordSalt = user.PasswordSalt,
+                //};
+
                 // add user vào database
                 _context.Users.Add(user);
                 _context.SaveChanges();

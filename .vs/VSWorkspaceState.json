@@ -3,7 +3,10 @@
     "",
     "\\AmisMessengerApi",
     "\\AmisMessengerApi\\AmisMessengerApi",
-    "\\AmisMessengerApi\\AmisMessengerApi\\Entities"
+    "\\AmisMessengerApi\\AmisMessengerApi\\Entities",
+    "\\AmisMessengerApi\\AmisMessengerApi\\Models",
+    "\\AmisMessengerApi\\AmisMessengerApi\\Models\\Users"
   ],
+  "SelectedNode": "\\AmisMessengerApi\\AmisMessengerApi.sln",
   "PreviewInSolutionExplorer": false
 }
