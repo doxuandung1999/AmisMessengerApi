@@ -59,8 +59,18 @@ namespace AmisMessengerApi.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Email, user.UserId.ToString())
+                    // tạo jwt id
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString() ),
+                    new Claim("userId", user.UserId.ToString()),
+                    new Claim("userEmail", user.UserEmail.ToString()),
+                    //new Claim("avatar" , user.UserAvatar.ToString()),
+                    new Claim("userName" , user.UserName.ToString()),
+                    new Claim("phoneNumber" , user.PhoneNumber.ToString())
+                   
                 }),
+                // api key SID tạo bởi Stringee
+                Issuer = _AppSettings.Issuer,
+              
                 // ngày hết hạn token
                 Expires = DateTime.UtcNow.AddDays(7),
                 // Đại diện cho khóa mật mã và thuật toán bảo mật được sử dụng để tạo chữ ký số

@@ -58,7 +58,7 @@ namespace AmisMessengerApi
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
-            // configure jwt authentication
+            // cấu hình jwt authenticate
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>
@@ -72,13 +72,14 @@ namespace AmisMessengerApi
                 {
                     OnTokenValidated = context =>
                     {
+
                         var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
                         var userId = Guid.Parse(context.Principal.Identity.Name) ;
-                        //int.Parse(context.Principal.Identity.Name)
+                        
                         var user = userService.GetUser(userId);
                         if (user == null)
                         {
-                            // return unauthorized if user no longer exists
+                            // return unauthorized nếu người dùng không tồn tại
                             context.Fail("Unauthorized");
                         }
                         return Task.CompletedTask;

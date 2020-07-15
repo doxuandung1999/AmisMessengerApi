@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\XuanDung\\Desktop\\AmisMessengerApi\\AmisMessengerApi\\AmisMessengerApi\\AmisMessengerApi.csproj": {}
+    "C:\\Users\\dxdung\\Desktop\\AmisMessengerApi\\AmisMessengerApi\\AmisMessengerApi\\AmisMessengerApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\XuanDung\\Desktop\\AmisMessengerApi\\AmisMessengerApi\\AmisMessengerApi\\AmisMessengerApi.csproj": {
+    "C:\\Users\\dxdung\\Desktop\\AmisMessengerApi\\AmisMessengerApi\\AmisMessengerApi\\AmisMessengerApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\XuanDung\\Desktop\\AmisMessengerApi\\AmisMessengerApi\\AmisMessengerApi\\AmisMessengerApi.csproj",
+        "projectUniqueName": "C:\\Users\\dxdung\\Desktop\\AmisMessengerApi\\AmisMessengerApi\\AmisMessengerApi\\AmisMessengerApi.csproj",
         "projectName": "AmisMessengerApi",
-        "projectPath": "C:\\Users\\XuanDung\\Desktop\\AmisMessengerApi\\AmisMessengerApi\\AmisMessengerApi\\AmisMessengerApi.csproj",
-        "packagesPath": "C:\\Users\\XuanDung\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\XuanDung\\Desktop\\AmisMessengerApi\\AmisMessengerApi\\AmisMessengerApi\\obj\\",
+        "projectPath": "C:\\Users\\dxdung\\Desktop\\AmisMessengerApi\\AmisMessengerApi\\AmisMessengerApi\\AmisMessengerApi.csproj",
+        "packagesPath": "C:\\Users\\dxdung\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dxdung\\Desktop\\AmisMessengerApi\\AmisMessengerApi\\AmisMessengerApi\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\XuanDung\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\dxdung\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -98,7 +95,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
         }
       }
     }
