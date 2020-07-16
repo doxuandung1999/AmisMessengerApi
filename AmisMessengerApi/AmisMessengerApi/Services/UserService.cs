@@ -13,6 +13,7 @@ namespace AmisMessengerApi.Services
     {
         // xác thực tài khoản
         User Authenticate(string email, string password);
+        IEnumerable<User> GetAll();
         User Creat(User user, string password);
         //User GetById(Guid id);
          Task<ActionResult<User>> GetUser(Guid id);
@@ -95,7 +96,11 @@ namespace AmisMessengerApi.Services
 
             return user;
         }
-
+        // lấy tất cả user
+        public IEnumerable<User> GetAll()
+        {
+            return _context.Users;
+        }
 
         // tạo và băm password
         // out : truyền tham chiếu

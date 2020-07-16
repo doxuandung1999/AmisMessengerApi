@@ -129,6 +129,16 @@ namespace AmisMessengerApi.Controllers
             return await _context.Users.ToListAsync();
         }
 
+
+        [HttpGet("getall")]
+        public IActionResult GetAll()
+        {
+            var users = _IUserService.GetAll();
+            var model = _IMapper.Map<IList<UserModel>>(users);
+            return Ok(model);
+        }
+
+
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(Guid id)
