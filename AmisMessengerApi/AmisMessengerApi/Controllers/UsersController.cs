@@ -113,7 +113,43 @@ namespace AmisMessengerApi.Controllers
             {
                 // tạo user
                 _IUserService.Creat(user, model.Password);
-                return Ok();
+
+                // tạo token
+                var tokenhandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes(_AppSettings.Secret);
+                // khai báo các thuộc tính trong token
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                    // tạo jwt id
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString() ),
+                    new Claim("userId", user.UserId.ToString()),
+                    new Claim("userEmail", user.UserEmail.ToString()),
+                    //new Claim("avatar" , user.UserAvatar.ToString()),
+                    new Claim("userName" , user.UserName.ToString()),
+                    new Claim("phoneNumber" , user.PhoneNumber.ToString())
+
+                    }),
+                    // api key SID tạo bởi Stringee
+                    Issuer = _AppSettings.Issuer,
+
+                    // ngày hết hạn token
+                    Expires = DateTime.UtcNow.AddDays(7),
+                    // Đại diện cho khóa mật mã và thuật toán bảo mật được sử dụng để tạo chữ ký số
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var token = tokenhandler.CreateToken(tokenDescriptor);
+                var tokenString = tokenhandler.WriteToken(token);
+                return Ok(new
+                {
+                   
+                    token = tokenString
+
+
+                });
+
+                //return Ok();
 
             }
             catch(ApplicationException ex)
