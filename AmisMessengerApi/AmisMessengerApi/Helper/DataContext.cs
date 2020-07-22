@@ -13,5 +13,7 @@ namespace AmisMessengerApi.Helper
         //connect tói databse
         public DataContext(DbContextOptions<DataContext> options )
             : base(options) { }
+        //connect tói databse
+        public DbSet<AmisMessengerApi.Entities.File> File { get; set; }
     }
 }

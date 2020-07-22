@@ -18,6 +18,7 @@ using AmisMessengerApi.Services;
 using Microsoft.IdentityModel.Tokens;
 using AutoMapper;
 
+
 namespace AmisMessengerApi
 {
     // cấu hình các request pipeline và cách giải quyết các yêu cầu
@@ -98,7 +99,8 @@ namespace AmisMessengerApi
 
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
-            
+
+            services.AddScoped<IFileService, FileService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
