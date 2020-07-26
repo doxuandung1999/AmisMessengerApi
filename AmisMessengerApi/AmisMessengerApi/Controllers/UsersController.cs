@@ -189,6 +189,59 @@ namespace AmisMessengerApi.Controllers
             return user;
         }
 
+        //edit usser
+        [HttpPut("updateProfile")]
+        public async Task<IActionResult> PutUserAsync([FromBody] EditUserModel model)
+        {
+            var user = _IMapper.Map<User>(model);
+            try
+            {
+                await _IUserService.EditUser(model);
+                //var token = _userService.GenerateJwtStringee(_appSettings.IsUser, _appSettings.Secret, user.Id.ToString(), user.Email, user.ImageUrl, user.FullName);
+                // tạo token
+                var tokenhandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes(_AppSettings.Secret);
+                // khai báo các thuộc tính trong token
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                    // tạo jwt id
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString() ),
+                    new Claim("userId", user.UserId.ToString()),
+                    new Claim("userEmail", user.UserEmail.ToString()),
+                    new Claim("avatar" , user.UserAvatar.ToString()),
+                    new Claim("userName" , user.UserName.ToString()),
+                    new Claim("phoneNumber" , user.PhoneNumber.ToString())
+
+                    }),
+                    // api key SID tạo bởi Stringee
+                    Issuer = _AppSettings.Issuer,
+
+                    // ngày hết hạn token
+                    Expires = DateTime.UtcNow.AddDays(7),
+                    // Đại diện cho khóa mật mã và thuật toán bảo mật được sử dụng để tạo chữ ký số
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var token = tokenhandler.CreateToken(tokenDescriptor);
+                var tokenString = tokenhandler.WriteToken(token);
+
+                return Ok(new
+                {
+                    id = user.UserId,
+                    name = user.UserName,
+                    email = user.UserEmail,
+                    phone = user.PhoneNumber,
+                    avatar = user.UserAvatar,
+                    token = tokenString
+                });
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
         // PUT: api/Users/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

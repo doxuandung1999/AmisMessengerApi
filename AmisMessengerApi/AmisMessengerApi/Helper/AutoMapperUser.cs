@@ -16,6 +16,7 @@ namespace AmisMessengerApi.Helper
             // ánh xạ các thành phần của User sang UserModel
             CreateMap<User, UserModel>();
             CreateMap<RegisterModel, User>();
+            CreateMap<EditUserModel, User>();
         }
     }
 }

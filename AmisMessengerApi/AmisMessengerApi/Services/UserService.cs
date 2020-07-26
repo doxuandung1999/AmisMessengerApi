@@ -1,7 +1,9 @@
 ﻿using AmisMessengerApi.Entities;
 using AmisMessengerApi.Helper;
+using AmisMessengerApi.Models.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +19,7 @@ namespace AmisMessengerApi.Services
         User Creat(User user, string password);
         //User GetById(Guid id);
          Task<ActionResult<User>> GetUser(Guid id);
+        Task<User> EditUser(EditUserModel model);
 
 
     }
@@ -84,6 +87,40 @@ namespace AmisMessengerApi.Services
             return user;
 
         }
+
+        //Edit User
+        public async Task<User> EditUser(EditUserModel model)
+        {
+
+            if (model == null)
+                throw new ApplicationException("Không có dữ liệu update");
+
+            var user = _context.Users.FirstOrDefault(u => u.UserId == model.UserId);
+
+            if (user == null)
+            {
+                throw new ApplicationException("Người dùng không tồn tại");
+            }
+
+
+            user.UserEmail = model.UserEmail;
+            user.UserAvatar = model.UserAvatar;
+            user.PhoneNumber = model.PhoneNumber;
+            user.UserName = model.UserName;
+
+            _context.Entry(user).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw new ApplicationException("Cập nhật thất bại!");
+            }
+            return user;
+        }
+
         // lấy user theo id
         public async Task<ActionResult<User>> GetUser(Guid id)
         {
