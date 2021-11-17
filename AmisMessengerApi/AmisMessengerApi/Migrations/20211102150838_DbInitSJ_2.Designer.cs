@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AmisMessengerApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200713070857_Db3")]
-    partial class Db3
+    [Migration("20211102150838_DbInitSJ_2")]
+    partial class DbInitSJ_2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,11 +31,8 @@ namespace AmisMessengerApi.Migrations
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnType("longblob");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("UserAvatar")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserEmail")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -45,7 +42,7 @@ namespace AmisMessengerApi.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Usersystem");
                 });
 #pragma warning restore 612, 618
         }

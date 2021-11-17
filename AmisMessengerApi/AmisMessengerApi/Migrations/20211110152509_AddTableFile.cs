@@ -2,7 +2,7 @@
 
 namespace AmisMessengerApi.Migrations
 {
-    public partial class Db3 : Migration
+    public partial class AddTableFile : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

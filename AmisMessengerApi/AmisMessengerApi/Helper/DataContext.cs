@@ -9,11 +9,12 @@ namespace AmisMessengerApi.Helper
 {
     public class DataContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> Usersystem { get; set; }
         //connect tói databse
         public DataContext(DbContextOptions<DataContext> options )
             : base(options) { }
         //connect tói databse
-        public DbSet<AmisMessengerApi.Entities.File> File { get; set; }
+        //public DbSet<File> Fileimg { get; set; }
+        public DbSet<Company> Company { get; set; }
     }
 }

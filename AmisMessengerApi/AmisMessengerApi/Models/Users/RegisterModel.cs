@@ -12,10 +12,11 @@ namespace AmisMessengerApi.Models.Users
         public string UserName { get; set; }
         [Required]
         public string UserEmail { get; set; }
-        [Required]
-        public string PhoneNumber { get; set; }
+        public int Role { get; set; }
+        //[Required]
+        //public string PhoneNumber { get; set; }
         
-        public string UserAvatar { get; set; }
+        //public string UserAvatar { get; set; }
         [Required]
         public string Password { get; set; }
     }

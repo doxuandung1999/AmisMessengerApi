@@ -65,7 +65,6 @@ namespace AmisMessengerApi.Controllers
                     new Claim("userEmail", user.UserEmail.ToString()),
                     //new Claim("avatar" , user.UserAvatar.ToString()),
                     new Claim("userName" , user.UserName.ToString()),
-                    new Claim("phoneNumber" , user.PhoneNumber.ToString())
                    
                 }),
                 // api key SID tạo bởi Stringee
@@ -84,9 +83,8 @@ namespace AmisMessengerApi.Controllers
                 Id = user.UserId,
                 email = user.UserEmail,
                 name = user.UserName,
-                phone = user.PhoneNumber,
-                avatar = user.UserAvatar,
-                token = tokenString
+                role = user.Role
+                //token = tokenString
 
 
             }) ;
@@ -107,7 +105,7 @@ namespace AmisMessengerApi.Controllers
         // formbody đọc 1 loại giá trị model từ thân request
         public IActionResult Register([FromBody] RegisterModel model)
         {
-            // ánh xạ model đến User
+            // ánh xạ model đến Usersystem
             var user = _IMapper.Map<User>(model);
             try
             {
@@ -127,8 +125,7 @@ namespace AmisMessengerApi.Controllers
                     new Claim("userId", user.UserId.ToString()),
                     new Claim("userEmail", user.UserEmail.ToString()),
                     //new Claim("avatar" , user.UserAvatar.ToString()),
-                    new Claim("userName" , user.UserName.ToString()),
-                    new Claim("phoneNumber" , user.PhoneNumber.ToString())
+                    new Claim("userName" , user.UserName.ToString())
 
                     }),
                     // api key SID tạo bởi Stringee
@@ -158,11 +155,11 @@ namespace AmisMessengerApi.Controllers
             }
         }
 
-        // GET: api/Users
+        // GET: api/Usersystem
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Usersystem.ToListAsync();
         }
 
 
@@ -175,11 +172,11 @@ namespace AmisMessengerApi.Controllers
         }
 
 
-        // GET: api/Users/5
+        // GET: api/Usersystem/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Usersystem.FindAsync(id);
 
             if (user == null)
             {
@@ -210,9 +207,7 @@ namespace AmisMessengerApi.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString() ),
                     new Claim("userId", user.UserId.ToString()),
                     new Claim("userEmail", user.UserEmail.ToString()),
-                    new Claim("avatar" , user.UserAvatar.ToString()),
                     new Claim("userName" , user.UserName.ToString()),
-                    new Claim("phoneNumber" , user.PhoneNumber.ToString())
 
                     }),
                     // api key SID tạo bởi Stringee
@@ -231,8 +226,6 @@ namespace AmisMessengerApi.Controllers
                     id = user.UserId,
                     name = user.UserName,
                     email = user.UserEmail,
-                    phone = user.PhoneNumber,
-                    avatar = user.UserAvatar,
                     token = tokenString
                 });
             }
@@ -242,7 +235,7 @@ namespace AmisMessengerApi.Controllers
             }
         }
 
-        // PUT: api/Users/5
+        // PUT: api/Usersystem/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
@@ -274,29 +267,29 @@ namespace AmisMessengerApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
+        // POST: api/Usersystem
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
-            _context.Users.Add(user);
+            _context.Usersystem.Add(user);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUser", new { id = user.UserId }, user);
         }
 
-        // DELETE: api/Users/5
+        // DELETE: api/Usersystem/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> DeleteUser(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Usersystem.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.Usersystem.Remove(user);
             await _context.SaveChangesAsync();
 
             return user;
@@ -304,7 +297,7 @@ namespace AmisMessengerApi.Controllers
 
         private bool UserExists(Guid id)
         {
-            return _context.Users.Any(e => e.UserId == id);
+            return _context.Usersystem.Any(e => e.UserId == id);
         }
     }
 }

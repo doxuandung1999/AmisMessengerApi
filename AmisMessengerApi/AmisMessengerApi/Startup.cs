@@ -45,7 +45,7 @@ namespace AmisMessengerApi
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:44320", "http://localhost:4200")
+                        builder.WithOrigins("http://localhost:44320", "http://localhost:8080")
                            .AllowAnyHeader()
                            .AllowAnyMethod()
                            .AllowCredentials();
@@ -99,8 +99,7 @@ namespace AmisMessengerApi
 
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
-
-            services.AddScoped<IFileService, FileService>();
+            services.AddScoped<ICompanyService, CompanyService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

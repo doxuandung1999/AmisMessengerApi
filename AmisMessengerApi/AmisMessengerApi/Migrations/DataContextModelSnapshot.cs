@@ -17,27 +17,33 @@ namespace AmisMessengerApi.Migrations
                 .HasAnnotation("ProductVersion", "3.1.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("AmisMessengerApi.Entities.File", b =>
+            modelBuilder.Entity("AmisMessengerApi.Entities.Company", b =>
                 {
-                    b.Property<Guid>("fileId")
+                    b.Property<int>("CompanyId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("CompanyAvatar")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("CompanyBanner")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("CompanyDescriber")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("convId")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.HasKey("CompanyId");
 
-                    b.Property<string>("fileName")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("filePath")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("fileType")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.HasKey("fileId");
-
-                    b.ToTable("File");
+                    b.ToTable("Company");
                 });
 
             modelBuilder.Entity("AmisMessengerApi.Entities.User", b =>
@@ -52,11 +58,8 @@ namespace AmisMessengerApi.Migrations
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnType("longblob");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("UserAvatar")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserEmail")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -66,7 +69,7 @@ namespace AmisMessengerApi.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Usersystem");
                 });
 #pragma warning restore 612, 618
         }

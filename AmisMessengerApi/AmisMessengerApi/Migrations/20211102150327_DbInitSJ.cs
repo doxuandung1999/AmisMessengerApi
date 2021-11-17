@@ -3,19 +3,18 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AmisMessengerApi.Migrations
 {
-    public partial class DbInit : Migration
+    public partial class DbInitSJ : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Usersystem",
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(nullable: false),
                     UserName = table.Column<string>(nullable: true),
                     UserEmail = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    UserAvatar = table.Column<string>(nullable: true),
+                    Role = table.Column<int>(nullable: false),
                     PasswordHash = table.Column<byte[]>(nullable: true),
                     PasswordSalt = table.Column<byte[]>(nullable: true)
                 },
@@ -28,7 +27,7 @@ namespace AmisMessengerApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Usersystem");
         }
     }
 }

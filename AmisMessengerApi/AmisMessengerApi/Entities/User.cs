@@ -15,8 +15,9 @@ namespace AmisMessengerApi.Entities
         public Guid UserId { get; set; }
         public string UserName { get; set; }
         public string UserEmail { get; set; }
-        public string PhoneNumber { get; set; }
-        public string UserAvatar { get; set; }
+        //public string PhoneNumber { get; set; }
+        //public string UserAvatar { get; set; }
+        public int Role { get; set; }
         /// <summary>
         // băm ra dạng số nguyên
         /// </summary>

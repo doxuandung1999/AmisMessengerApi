@@ -2,7 +2,7 @@
 
 namespace AmisMessengerApi.Migrations
 {
-    public partial class DbSecond : Migration
+    public partial class DbInitSJ_2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

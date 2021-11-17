@@ -17,7 +17,7 @@ namespace AmisMessengerApi.Services
         User Authenticate(string email, string password);
         IEnumerable<User> GetAll();
         User Creat(User user, string password);
-        //User GetById(Guid id);
+        //Usersystem GetById(Guid id);
          Task<ActionResult<User>> GetUser(Guid id);
         Task<User> EditUser(EditUserModel model);
 
@@ -38,7 +38,7 @@ namespace AmisMessengerApi.Services
             {
                 return null;
             }
-            var user = _context.Users.SingleOrDefault(x => x.UserEmail == email);
+            var user = _context.Usersystem.SingleOrDefault(x => x.UserEmail == email);
             // kiểm tra email có tồn tại ko
             if(user == null)
             {
@@ -56,8 +56,8 @@ namespace AmisMessengerApi.Services
         public User Creat(User user , string password)
         {
             if (string.IsNullOrWhiteSpace(password)) throw new ApplicationException("nhập lại password");
-            // kiểm tra User đã tòn tại chưa
-            if (_context.Users.Any(x => x.UserEmail == user.UserEmail)) throw new ApplicationException("Email " +user.UserEmail + " đã tồn tại");
+            // kiểm tra Usersystem đã tòn tại chưa
+            if (_context.Usersystem.Any(x => x.UserEmail == user.UserEmail)) throw new ApplicationException("Email " +user.UserEmail + " đã tồn tại");
             // tạo password nếu các đk thỏa mãn
             if (!string.IsNullOrWhiteSpace(password))
             {
@@ -68,7 +68,7 @@ namespace AmisMessengerApi.Services
                 user.PasswordSalt = passwordSalt;
                 user.UserId = new Guid();
 
-                //var _user = new User
+                //var _user = new Usersystem
                 //{
                 //    UserId = new Guid(),
                 //    UserEmail = user.UserEmail,
@@ -80,7 +80,7 @@ namespace AmisMessengerApi.Services
                 //};
 
                 // add user vào database
-                _context.Users.Add(user);
+                _context.Usersystem.Add(user);
                 _context.SaveChanges();
 
             }
@@ -88,14 +88,14 @@ namespace AmisMessengerApi.Services
 
         }
 
-        //Edit User
+        //Edit Usersystem
         public async Task<User> EditUser(EditUserModel model)
         {
 
             if (model == null)
                 throw new ApplicationException("Không có dữ liệu update");
 
-            var user = _context.Users.FirstOrDefault(u => u.UserId == model.UserId);
+            var user = _context.Usersystem.FirstOrDefault(u => u.UserId == model.UserId);
 
             if (user == null)
             {
@@ -104,8 +104,6 @@ namespace AmisMessengerApi.Services
 
 
             user.UserEmail = model.UserEmail;
-            user.UserAvatar = model.UserAvatar;
-            user.PhoneNumber = model.PhoneNumber;
             user.UserName = model.UserName;
 
             _context.Entry(user).State = EntityState.Modified;
@@ -124,7 +122,7 @@ namespace AmisMessengerApi.Services
         // lấy user theo id
         public async Task<ActionResult<User>> GetUser(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Usersystem.FindAsync(id);
 
             if (user == null)
             {
@@ -136,7 +134,7 @@ namespace AmisMessengerApi.Services
         // lấy tất cả user
         public IEnumerable<User> GetAll()
         {
-            return _context.Users;
+            return _context.Usersystem;
         }
 
         // tạo và băm password

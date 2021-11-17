@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AmisMessengerApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200714132634_Db4")]
-    partial class Db4
+    [Migration("20211110171152_AddTableFile_1")]
+    partial class AddTableFile_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,6 +18,35 @@ namespace AmisMessengerApi.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("AmisMessengerApi.Entities.Company", b =>
+                {
+                    b.Property<int>("CompanyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<byte[]>("CompanyAvatar")
+                        .HasColumnType("longblob");
+
+                    b.Property<byte[]>("CompanyBanner")
+                        .HasColumnType("longblob");
+
+                    b.Property<string>("CompanyDescriber")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("CompanyId");
+
+                    b.ToTable("Company");
+                });
 
             modelBuilder.Entity("AmisMessengerApi.Entities.User", b =>
                 {
@@ -31,11 +60,8 @@ namespace AmisMessengerApi.Migrations
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnType("longblob");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("UserAvatar")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserEmail")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -45,7 +71,7 @@ namespace AmisMessengerApi.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Usersystem");
                 });
 #pragma warning restore 612, 618
         }

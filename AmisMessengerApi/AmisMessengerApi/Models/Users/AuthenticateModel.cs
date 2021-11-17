@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace AmisMessengerApi.Models.Users
 {
     public class AuthenticateModel
-        // xác định các tham số cho yêu cầu POST đến database Users 
+        // xác định các tham số cho yêu cầu POST đến database Usersystem 
     {
         [Required] // yêu cầu bắt buộc phải có để xác thực
         public string UserEmail { get; set; }
