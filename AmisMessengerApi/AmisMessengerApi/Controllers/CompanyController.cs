@@ -69,7 +69,7 @@ namespace AmisMessengerApi.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFile(int id, Company company)
+        public async Task<IActionResult> PutFile(int id, [FromBody] Company company)
         {
             if (id != company.CompanyId)
             {
@@ -97,33 +97,40 @@ namespace AmisMessengerApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Files
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[HttpPost]
-        //public async Task<ActionResult<Company>> PostFile(Company company)
-        //{
-        //    _context.Company.Add(company);
-        //    await _context.SaveChangesAsync();
+        //edit usser
+        [HttpPost("updatecompany")]
+        public async Task<IActionResult> EditCompany([FromBody] Company model)
+        {
+            try
+            {
+                await _ICompanyService.EditCompany(model);
+                return Ok(new
+                {
+                    data = model
+                });
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
 
-        //    return CreatedAtAction("GetFile", new { id = file.FileId }, file);
-        //}
-
-        // DELETE: api/Files/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<Company>> DeleteCompany(Guid id)
-        //{
-        //    var file = await _context.Company.FindAsync(id);
-        //    if (file == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Fileimg.Remove(file);
-        //    await _context.SaveChangesAsync();
-
-        //    return file;
-        //}
+        [HttpGet("getcompanybyid")]
+        public async Task<IActionResult> GetCompany([FromQuery] Guid id)
+        {
+            try
+            {
+                var company = await _ICompanyService.GetCompany(id);
+                return Ok(new
+                {
+                    data = company
+                });
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
 
         private bool CompanyExists(int id)
         {

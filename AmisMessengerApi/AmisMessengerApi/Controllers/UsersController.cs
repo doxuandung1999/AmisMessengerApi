@@ -17,6 +17,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using AmisMessengerApi.Models.Files;
 
 namespace AmisMessengerApi.Controllers
 {
@@ -29,13 +30,15 @@ namespace AmisMessengerApi.Controllers
         private IMapper _IMapper;
         private IUserService _IUserService;
         private AppSettings _AppSettings;
+        private ICompanyService _ICompanyService;
 
-        public UsersController(DataContext context , IMapper imapper , IUserService iuserService , IOptions<AppSettings> appsettings)
+        public UsersController(DataContext context , IMapper imapper , IUserService iuserService, ICompanyService companyService , IOptions<AppSettings> appsettings)
         {
             _context = context;
             _AppSettings = appsettings.Value;
             _IMapper = imapper;
             _IUserService = iuserService;
+            _ICompanyService = companyService;
 
         }
         // được phép truy cập ko cần xác thực
@@ -51,6 +54,9 @@ namespace AmisMessengerApi.Controllers
                 // tạo ra 1 phản hồi
                 return BadRequest(new { message = " Sai Email hoặc Password" });
             }
+            // lấy thông tin công ty
+            var company = _ICompanyService.GetCompany(user.UserId).Result;
+
             // tạo token
             var tokenhandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_AppSettings.Secret);
@@ -83,7 +89,8 @@ namespace AmisMessengerApi.Controllers
                 Id = user.UserId,
                 email = user.UserEmail,
                 name = user.UserName,
-                role = user.Role
+                role = user.Role,
+                company = company
                 //token = tokenString
 
 
@@ -111,6 +118,19 @@ namespace AmisMessengerApi.Controllers
             {
                 // tạo user
                 _IUserService.Creat(user, model.Password);
+
+                // tạo cty cho người tuyển dụng mới đăng ký
+                if (user.Role == 1)
+                {
+                    
+                    UpCompany company = new UpCompany();
+                    company.UserId = user.UserId;
+                    // ánh xạ model đến Usersystem
+                    var companyObj = _IMapper.Map<Company>(company);
+                    _ICompanyService.creatCompany(companyObj);
+                }
+
+                
 
                 // tạo token
                 var tokenhandler = new JwtSecurityTokenHandler();
