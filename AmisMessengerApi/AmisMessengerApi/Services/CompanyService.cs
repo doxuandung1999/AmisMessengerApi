@@ -15,6 +15,7 @@ namespace AmisMessengerApi.Services
         Task<Company> EditCompany(Company model);
 
         Task<Company> GetCompany(Guid id);
+        Task<Company> GetCompanyByCompanyID(int id);
     }
     public class CompanyService : ICompanyService
     {
@@ -74,6 +75,18 @@ namespace AmisMessengerApi.Services
             }
 
             return user;
+        }
+
+        public async Task<Company> GetCompanyByCompanyID(int id)
+        {
+            var company = _context.Company.FirstOrDefault(x => x.CompanyId == id);
+
+            if (company == null)
+            {
+                return null;
+            }
+
+            return company;
         }
 
     }

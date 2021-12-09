@@ -16,5 +16,7 @@ namespace AmisMessengerApi.Helper
         //connect tói databse
         //public DbSet<File> Fileimg { get; set; }
         public DbSet<Company> Company { get; set; }
+        public DbSet<Post> jobpost { get; set; }
+        public DbSet<JobCare> jobcare { get; set; }
     }
 }

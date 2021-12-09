@@ -3,14 +3,16 @@ using System;
 using AmisMessengerApi.Helper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AmisMessengerApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211201132028_addTablePost")]
+    partial class addTablePost
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,23 +46,6 @@ namespace AmisMessengerApi.Migrations
                     b.HasKey("CompanyId");
 
                     b.ToTable("Company");
-                });
-
-            modelBuilder.Entity("AmisMessengerApi.Entities.JobCare", b =>
-                {
-                    b.Property<int>("JobCareId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("JobCareId");
-
-                    b.ToTable("jobcare");
                 });
 
             modelBuilder.Entity("AmisMessengerApi.Entities.Post", b =>
@@ -105,8 +90,8 @@ namespace AmisMessengerApi.Migrations
                     b.Property<int>("RequestSex")
                         .HasColumnType("int");
 
-                    b.Property<string>("Salary")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<decimal>("Salary")
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");

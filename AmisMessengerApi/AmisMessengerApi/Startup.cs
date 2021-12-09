@@ -100,6 +100,8 @@ namespace AmisMessengerApi
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<IPostService, PostService>();
+            services.AddScoped<IJobCareService, JobCareService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

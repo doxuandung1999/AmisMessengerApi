@@ -131,6 +131,23 @@ namespace AmisMessengerApi.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+        [HttpGet("getcompanybycompanyid")]
+        public async Task<IActionResult> GetCompanyByCompanyID([FromQuery] int id)
+        {
+            try
+            {
+                var company = await _ICompanyService.GetCompanyByCompanyID(id);
+                return Ok(new
+                {
+                    data = company
+                });
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+        
 
         private bool CompanyExists(int id)
         {
