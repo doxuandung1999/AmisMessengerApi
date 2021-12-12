@@ -22,6 +22,8 @@ namespace AmisMessengerApi.Services
         Task<Post> EditPost(Post model);
         Task<Post> UpdateStatus(int postID);
         Task<Post> DeletePost(int postID);
+
+        Task<List<GetPost>> GetPostSearch(string jobName, int career, int location, Guid userID);
     }
     public class PostService : IPostService
     {
@@ -127,6 +129,43 @@ namespace AmisMessengerApi.Services
             return listPost.Where(x => x.Status == 1).ToList();
         }
 
+        public async Task<List<GetPost>> GetPostSearch(string jobName, int career, int location, Guid userID)
+        {
+            List<GetPost> result = new List<GetPost>();
+            List<GetPost> ListByCareer = new List<GetPost>();
+            List<GetPost> ListByLocation = new List<GetPost>();
+            var listPost = await GetAllByUserID(userID);
+
+            if(career == 0)
+            {
+                ListByCareer = listPost.ToList();
+            }
+            else
+            {
+                ListByCareer = listPost.Where(x => x.Career == career).ToList();
+            }
+
+            if(location == 0)
+            {
+                ListByLocation = ListByCareer;
+            }
+            else
+            {
+                ListByLocation = ListByCareer.Where(x => x.Location == location).ToList();
+            }
+
+            if(string.IsNullOrEmpty(jobName))
+            {
+                result = ListByLocation;
+            }
+            else
+            {
+                result = ListByLocation.Where(x => x.Title.ToUpper().Contains(jobName.ToUpper())).ToList();
+            }
+            
+            return result;
+        }
+
         public async Task<List<GetPost>> GetPostByCompanyID(int companyID, Guid userID)
         {
             List<GetPost> result = new List<GetPost>();
@@ -151,7 +190,8 @@ namespace AmisMessengerApi.Services
                 CompanyName = company.CompanyName,
                 CompanyAvatar = company.CompanyAvatar,
                 IsFavourite = false,
-                Status = job.Status
+                Status = job.Status,
+                ExpireDate = job.ExpireDate,
             }
         ).ToList();
 
@@ -169,13 +209,14 @@ namespace AmisMessengerApi.Services
                     post.Title = item.Title;
                     post.IsFavourite = item.IsFavourite;
                     post.Status = item.Status;
+                    post.ExpireDate = item.ExpireDate;
                     result.Add(post);
 
 
                 }
             }
 
-            return result;
+            return result.OrderByDescending(x => x.PostId).ToList();
 
         }
 
@@ -261,7 +302,7 @@ namespace AmisMessengerApi.Services
                 }
             }
 
-            return result;
+            return result.OrderByDescending(x => x.PostId).ToList();
 
         }
 

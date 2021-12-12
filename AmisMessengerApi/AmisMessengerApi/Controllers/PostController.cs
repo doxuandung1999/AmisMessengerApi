@@ -141,6 +141,21 @@ namespace AmisMessengerApi.Controllers
             }
         }
 
+        [HttpGet("getpostbysearch")]
+        public IActionResult GetPostSearch([FromQuery] string jobName, [FromQuery] int career, [FromQuery] int location, [FromQuery] Guid userID)
+        {
+
+            try
+            {
+                var post = _IPostService.GetPostSearch(jobName, career, location, userID);
+                return Ok(post);
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
         //edit usser
         [HttpPost("updatepost")]
         public async Task<IActionResult> EditPost([FromBody] Post model)
