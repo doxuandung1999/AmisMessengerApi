@@ -18,5 +18,6 @@ namespace AmisMessengerApi.Helper
         public DbSet<Company> Company { get; set; }
         public DbSet<Post> jobpost { get; set; }
         public DbSet<JobCare> jobcare { get; set; }
+        public DbSet<Profiles> profiles { get; set; }
     }
 }
